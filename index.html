@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>OpenShift Users Group Paraguay</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <br/>
+        <strong><div id="links">Links interesantes para empezar tu journey con OKD y OpenShift</div></strong><br/>
+        <br/>
+        - <a href="https://learn.openshift.com">learn.openshift.com</a> - Probar OpenShift en un entorno en la nube y aprender a utilizarlo en el proceso.<br/>
+        - <a href="https://docs.openshift.com">docs.openshift.com</a> / <a href="https://docs.okd.io">docs.okd.io</a> - Sitios de documentación oficial<br/>
+        - <a href="https://minishift.io">minishift.io</a> - Especial para probar en tu propia laptop/PC<br/>
+        - <a href="https://blog.openshift.com/installing-okd-3-10-on-a-single-host/">https://blog.openshift.com/installing-okd-3-10-on-a-single-host/</a>- Instalación de OKD All in One para probar todas las funcionalidades de Openshift, que no son posible probarlas con minishift o oc cluster up, tales como métricas, logging, service catalog, prometheus etc.<br/>
+        - <a href="https://blog.openshift.com/openshift-all-in-one-aio-for-labs-and-fun/">https://blog.openshift.com/openshift-all-in-one-aio-for-labs-and-fun/</a>- Instalación de OpenShift All in One<br/>
+        - <a href="https://cloudowski.com/articles/10-differences-between-openshift-and-kubernetes/">https://cloudowski.com/articles/10-differences-between-openshift-and-kubernetes/</a>- comparación de Kubernetes vs Openshift hecha por alguien que no es de Red Hat<br/>
+        - <a href="https://blog.openshift.com/openfaas-on-openshift/">https://blog.openshift.com/openfaas-on-openshift/</a>- OpenFaaS sobre OpenShift<br/>
+        <br/>
+        <strong><div id="faq">FAQ</div></strong><br/>
+        <br/>
+        <strong>- Es OKD diferente de Kubernetes? Cuales son las comparaciones con el proyecto Kubernetes?</strong><br/>
+        <br/>
+        Este link tiene buenísima informacion al respecto: <a href="https://cloudowski.com/articles/10-differences-between-openshift-and-kubernetes/">https://cloudowski.com/articles/10-differences-between-openshift-and-kubernetes/</a><br/>
+        <br/>
+        Además, Openshift está basado en Kubernetes y es compatible con todos los objetos que trae kubernetes, digamos que openshift es un proyecto que agrupa kubernetes y otros varios proyectos para convertirse en lo que es ser un PaaS o Plataforma como Servicio, dando una plataforma de nube integral para el despliegue de aplicaciones ya sean nube nativas o stateful. En términos más simples, se podría considerar a Openshift como una "distro" de kubernetes así como "RedHat" o "CentOS" son distribuciones de Linux que sería el proyecto core o base.<br/>
+        <br/>
+        De todas maneras, OpenShift apunta a ser mucho más que un cluster compatible con Kubernetes, a ser un PaaS completo que abarca Infra, Desa, QA, Arquitectos, DevOps, Seguridad, etc. por eso es que tiene tantos componentes por encima de Kubernetes y que les comentaba por ahí en otra respuesta, es una de las razones por las que también "pide" digamos más hardware que un cluster tradicional de kubernetes<br/>
+        <br/>
+        <strong>- Cómo me conviene empezar a probar?</strong><br/>
+        <br/>
+        Depende del caso de uso, si sos desarrollador te recomiendo directamente minishift (minishift.io), si queres instalar un cluster completo para probar podes hacerlo en una maquina virtual de 24 a 32 GB de RAM con el OKD All In One <a href="https://blog.openshift.com/installing-okd-3-10-on-a-single-host/ ">(https://blog.openshift.com/installing-okd-3-10-on-a-single-host/)</a>, y si ya queres algo productivo hay que tener otras consideraciones, planificación, etc. Incluso si queres probar sin instalar podes ir a <a href="https://learn.openshift.com">learn.openshift.com</a>y elegir la opcion de Openshift Playgrounds, ahi podes desplegar tus aplicaciones sin complicarte con el proceso de instalacion. La VM que te da el sitio es un OKD all in one que tiene un tiempo de vida de 1 hora, que ya da de sobra para probar varias cosas. <br/>
+        <br/>
+        Si es para desarrollo en la nube con eclipse che / CodeReady Workspaces tenés <a href="https://openshift.io">openshift.io</a>  y despues tenes tipo un trial de 60 días gratuito también en la nube con OpenShift Dedicated creo que era (? en <a href="https://manage.openshift.com">manage.openshift.com</a><br/>
+        <br/>
+        <strong>- Por qué lo que 24GB de RAM luego para el All in One?</strong><br/>
+        <br/>
+        Esto sería si querés probar todos y cada uno de los componentes my friend, podés reducir eso quitándole el componente de "Logging" por ejemplo, si solo querés probar "métricas", podrías reducir a 16 GB por ejemplo.<br/>
+        <br/>
+        Una instalacion de OKD all in one, puede tener estos componentes <br/>
+        - OKD Base (Servicios del Master, Servicios del Nodo, SDN, etc.) (2 a 4 GB de RAM)<br/>
+        - Metricas Hawkular (para escalamiento horizontal) (6 GB de RAM)<br/>
+        - Logging (pide 16 GB mínimo de RAM pero se puede bajar a 8 GB de RAM)<br/>
+        - Prometheus Alerts y Monitoring (2 GB de RAM)<br/>
+        - Dashboards de Prometheus en Grafana (2 GB de RAM)<br/>
+        - Service Catalog<br/>
+        - Cluster Console<br/>
+        - Template Service Broker<br/>
+        - Ansible Service Broker<br/>
+        - Web Console<br/>
+        - Router<br/>
+        - Registry Interno<br/>
+        - Registry Console<br/>
+        <br/>
+        Los que no tienen especificación de RAM no consumen tanto pero tienen su parte en la torta<br/>
+        <br/>
+        <strong>- Y para una instalación productiva?</strong><br/>
+        <br/>
+        <a href="https://docs.okd.io/latest/install/prerequisites.html#hardware">https://docs.okd.io/latest/install/prerequisites.html#hardware</a>tiene los requisitos mínimos productivos.<br/>
+        <br/>
+        Esto se lee en la documentación. The system requirements vary per host type:<br/>
+        <br/>
+        Masters: min 16 GB de RAM<br/>
+        Nodes (Infra and Apps): 8 GB min<br/>
+        <br/>
+        Pero los masters pueden bajar a 8 GB de RAM dependiendo de los componentes que se tienen instalados, aunque hay que ser cuidadosos con qué componentes se quitan para lograr esto. Los infra nodes serían nodos esclavos de kubernetes que manejan algunos componentes esenciales del cluster, como el router y el registry interno. Aca se pueden ver los distintos escenarios posibles hablando de cantidad de nodos o VMs necesarias, tanto masters como infra como nodos de app <a href="https://docs.okd.io/latest/install/index.html#environment-scenarios">https://docs.okd.io/latest/install/index.html#environment-scenarios</a><br/>
+        <br/>
+        Por ejemplo <br/>
+        <br/>
+        1 master/infra y 2 nodos de app. Tenes HA de aplicaciones pero no del cluster, se te cae el master y se cae todo, como en kubernetes mismo<br/>
+        3 master/infra, 2 nodos app, 1 lb. Tenes HA de aplicaciones y del cluster, ademas del balanceador opcional<br/>
+        3 master, 2 infra, 2 nodos app, 1lb, 1 nfs. Tenes HA de Aplicaciones, del Cluster, Hardware dedicado para componentes críticos (infra nodes), 1 balanceador para los componentes HA y NFS para storage persistente de aplicaciones.<br/>
+        <br/>
+        El 3er ejemplo con etcd fuera de los master no es muy común diría yo, y no muy recomendable para la generalidad de los casos<br/>
+        <br/>
+        <strong>- Cómo maneja OKD/OpenShift la parte de persistencia de datos?</strong><br/>
+        <br/>
+        OKD usa el mismo framework de persistencia de Kubernetes, y es integrable con varios tipos de storage, por ejemplo NFS, iSCSI, fiber channel serían las opciones "estáticas", Gluster CNS, Ceph rados, también EBS y otros tipos de storage serían las opciones dinámicas<br/>
+        <br/>
+        <a href="https://docs.okd.io/latest/install_config/persistent_storage/index.html">https://docs.okd.io/latest/install_config/persistent_storage/index.html</a>es un buen punto de partida para temas de persistencia.<br/>
+        <br/>
+        <strong>- Dónde puedo encontrar información de planificación, diseño y arquitectura ?</strong><br/>
+        <br/>
+        <a href="https://docs.okd.io/latest/install/index.html#inital-planning">https://docs.okd.io/latest/install/index.html#inital-planning</a>tiene muy buena base para empezar la planificación y diseño<br/>
+        En <a href="https://docs.okd.io/latest/architecture/index.html">https://docs.okd.io/latest/architecture/index.html</a>se pueden apreciar los diferentes componentes que forman en conjunto lo que es OKD y la función de cada uno de ellos de manera conceptual.<br/>
+        <br/>
+        <strong>- Ya instalé minishift y no lo encuentro muy útil porque ya me tomé el (mucho) trabajo de montar CI/CD con Jenkins en otro lado y el Registry también, qué más me ofrece OKD?</strong><br/>
+        <br/>
+        Este es uno de los features que más me gustan, el tema de Pipelines con CI/CD, porque te habilita a hacer DevOps sin muchas vueltas, hablando de esto les dejo este video sobre una demo de CI/CD con OKD <a href="https://www.youtube.com/watch?v=65BnTLcDAJI">https://www.youtube.com/watch?v=65BnTLcDAJI</a><br/>
+        <br/>
+        Además, hay otros features que no se pueden apreciar tanto en el minishift como por ejemplo el stack EFK (subsistema de logging con Elasticsearch, Fluentd y Kibana) o las métricas con Hawkular, Cassandra y Heapster para escalamiento horizontal automático de pods en base a uso de CPU y memoria. O el monitoreo de la salud de tu clúster con Prometheus y Grafana<br/>
+        <br/>
+        El minishift pues surgió como para que primero se pueda probar rápido el OKD, y segundo para que sirva como plataforma para los desarrolladores para que desplieguen ahí primero y después en un clúster productivo en el día a día.<br/>
+        <br/>
+        Lo que te recomiendo en este caso que pruebes la instalación All in One mencionada en el siguiente link <a href="https://blog.openshift.com/installing-okd-3-10-on-a-single-host/">https://blog.openshift.com/installing-okd-3-10-on-a-single-host/</a>con una VM de al menos 17 GB de RAM<br/>
+        <br/>
+        Ahí el procedimiento sería básicamente más o menos instalar un CentOS minimal con ese hardware, después instalar git adentro, clonar el repo de gshipley y ejecutar ./install_okd o algo así<br/>
+        <br/>
+        <strong>- Por que un grupo tan específico de OKD? Por que no unificar todo en un grupo mas genérico como Docker?</strong><br/>
+        <br/>
+        Pensamos que un grupo de este proyecto ayudaría a las personas que ya están usando o que específicamente necesitan información sobre el mismo, pero tampoco estamos ajenos a compartir en el grupo de docker cualquier consulta sobre OKD que se tenga. Tambien, como es un producto que tiene su version "comercial" se puede malinterpretar en el grupo de docker como que solo se quiere vender el producto por el producto en sí y no por contribuir a la comunidad. A esto se le puede sumar el hecho de que es muy dificil seguir un hilo en un grupo más genérico donde se hablan de varios temas a la vez.<br/>
+        <br/>
+        Por otro lado, también, nos consideramos evangelizadores de OKD y OpenShift dentro de lo que consideramos son las tecnologías que implementan docker/kubernetes de manera más amigable al usuario, por eso el grupo específico para consultas específicas e informaciones relacionadas con eso.<br/>
+        <br/>
+        Hay muchos pero muchos proyectos buenos involucrados en lo que es Docker/Contenedores/Kubernetes. También hablar de todos ellos puede ser un poco confuso al principio pero una etapa capaz imprescindible para la gente que está empezando en este tema, que tampoco esta mal para nada.<br/>
+        <br/>
+        Nuestra intención con este grupo es hablar de cosas mucho más específicas cuando la gente ya probó docker, probó kubernetes, probó otras distros de kubernetes como Rancher, Pivotal, IBM BlueMix, etc. etc. y finalmente por a/b motivo se decidió por OKD u OpenShift, o quiere probar OKD/OpenShift, o quiere tener información acerca de eso.<br/>
+        <br/>
+        Creemos que no está mal tener un grupo a parte para lo específico, sobre todo cuando hay una comunidad creciente de colegas que empiezan en su journey con OpenShift, y para temas generales, debates, comparaciones, etc. etc. se puede hacerlo en el grupo de Docker sin problema
+    </body>
+</html>
